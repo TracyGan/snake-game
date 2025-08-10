@@ -3,59 +3,24 @@
 #include <GLFW/glfw3.h>
 using namespace std;
 
-enum Direction { UP, DOWN, LEFT, RIGHT };
-
+enum Direction { NORTH, SOUTH, WEST, EAST };
 struct Snake {
-    vector<pair<float, float>> body;
+    vector<pair<int, int>> body;
     Direction dir;
 
     Snake() {
-        body.push_back({0.0f, 0.0f});
-        dir = RIGHT;
+        dir = NORTH;
     }
 
-    void move() {
-        float x = body[0].first;
-        float y  = body[0].second;
+    void changeDirection(Direction d) {
 
-        switch (dir) {
-            case UP: 
-                y += 0.05f;
-                break;
-            case DOWN:
-                y -= 0.05f;
-                break;
-            case LEFT:
-                x -= 0.05f;
-                break;
-            case RIGHT:
-                x += 0.05f;
-                break;
-        }
     }
+
+    bool checkCollision() {
+
+    };
+
+    void eat() {
+
+    };
 };
-
-int main(void) {
-    GLFWwindow* window;
-
-    if (!glfwInit()) return -1;
-
-    window = glfwCreateWindow(640, 480, "Snake Game", NULL, NULL);
-    if (!window) {
-        glfwTerminate();
-        return -1;
-    } 
-
-    glfwMakeContextCurrent(window);
-
-    while (!glfwWindowShouldClose(window)) {
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
-
-        glfwPollEvents();
-    }
-
-    glfwTerminate();
-    return 0;
-}

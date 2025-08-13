@@ -16,4 +16,7 @@ clean:
 	rm -f $(OBJS) main
 
 help:
+	@echo "Available Commands"
+	@echo "========================"
 	@echo "main - Build the program"
+	@echo "clean - Clean up the program"

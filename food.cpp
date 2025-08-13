@@ -7,6 +7,8 @@
 Food::Food(int maxX, int maxY) {
     std::random_device rd;
     std::mt19937 gen(rd());
+
+    // Ensure that the coordinates are not at the border
     std::uniform_int_distribution<> distribX(15, maxX - 15);
     std::uniform_int_distribution<> distribY(15, maxY - 15);
 

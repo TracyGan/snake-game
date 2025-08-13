@@ -46,24 +46,47 @@ void Snake::render(int cellSize) {
 
     // Eyes of the snake
     int eyeDimension = cellSize / 5;
-    int eyeY = y + cellSize - eyeDimension - 5;
+    int leftEyeX, leftEyeY, rightEyeX, rightEyeY;
 
-    int leftEye = x + cellSize / 4 - eyeDimension / 2;
-    int rightEye = x + 3 * cellSize / 4 - eyeDimension / 2;
+    switch (dir) {
+         case NORTH: 
+            leftEyeX = x + cellSize / 4 - eyeDimension / 2;
+            rightEyeX = x + 3 * cellSize / 4 - eyeDimension / 2;
+            leftEyeY = rightEyeY = y + cellSize - eyeDimension - 5; 
+            break;
+
+        case SOUTH: 
+            leftEyeX = x + cellSize / 4 - eyeDimension / 2;
+            rightEyeX = x + 3 * cellSize / 4 - eyeDimension / 2;
+            leftEyeY = rightEyeY = y + 5; 
+            break;
+            
+        case WEST: 
+            leftEyeX = rightEyeX = x + 5; 
+            leftEyeY = y + cellSize / 4 - eyeDimension / 2;
+            rightEyeY = y + 3 * cellSize / 4 - eyeDimension / 2;
+            break;
+            
+        case EAST: 
+            leftEyeX = rightEyeX = x + cellSize - eyeDimension - 5;
+            leftEyeY = y + cellSize / 4 - eyeDimension / 2;
+            rightEyeY = y + 3 * cellSize / 4 - eyeDimension / 2;
+            break;
+    }
+
     glColor3f(1.0f, 1.0f, 1.0f);
-
     glBegin(GL_QUADS);
         // Left eye
-        glVertex2i(leftEye, eyeY);
-        glVertex2i(leftEye + eyeDimension, eyeY);
-        glVertex2i(leftEye + eyeDimension, eyeY + eyeDimension);
-        glVertex2i(leftEye, eyeY + eyeDimension);
+        glVertex2i(leftEyeX, leftEyeY);
+        glVertex2i(leftEyeX + eyeDimension, leftEyeY);
+        glVertex2i(leftEyeX + eyeDimension, leftEyeY + eyeDimension);
+        glVertex2i(leftEyeX, leftEyeY + eyeDimension);
 
         // Right eye
-        glVertex2i(rightEye, eyeY);
-        glVertex2i(rightEye + eyeDimension, eyeY);
-        glVertex2i(rightEye + eyeDimension, eyeY + eyeDimension);
-        glVertex2i(rightEye, eyeY + eyeDimension);
+        glVertex2i(rightEyeX, rightEyeY);
+        glVertex2i(rightEyeX + eyeDimension, rightEyeY);
+        glVertex2i(rightEyeX + eyeDimension, rightEyeY + eyeDimension);
+        glVertex2i(rightEyeX, rightEyeY + eyeDimension);
     glEnd();
 
     glFlush(); 

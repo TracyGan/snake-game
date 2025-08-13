@@ -2,6 +2,7 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include "snake.h"
+#include "constants.h"
 
 Snake::Snake(int startX, int startY) {
     body.push_back({startX, startY});
@@ -17,7 +18,10 @@ void Snake::setDirection(Direction d) {
 }   
 
 bool Snake::checkCollision() {
-    return true;
+    auto headX = body.front().first;
+    auto headY = body.front().second;
+
+    return (headX < 0 || headX >= WIDTH || headY < 0 || headY >= HEIGHT);
 }
 
 void Snake::eat() {

@@ -3,11 +3,11 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include "snake.h"
+#include "constants.h"
 
 using namespace std;
 
-const int WIDTH = 700;
-const int HEIGHT = 500;
+
 bool isGameOver;
 
 Snake snake(WIDTH / 2, HEIGHT / 2);
@@ -54,8 +54,6 @@ void RenderGame() {
     glOrtho(0, WIDTH, 0, HEIGHT, -1, 1);
     glMatrixMode(GL_MODELVIEW);
 
-    int cellSize = 20;
-
     glfwSetKeyCallback(window, keyCallback);
 
     while (!glfwWindowShouldClose(window)) {
@@ -63,7 +61,10 @@ void RenderGame() {
         glLoadIdentity();
 
         snake.move();
-        snake.render(cellSize);
+        if (snake.checkCollision()) {
+            break;
+        }
+        snake.render(CELL_SIZE);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

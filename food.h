@@ -8,7 +8,9 @@ class Food {
         std::pair<int, int> position;
 
     public:
-        Food(int startX, int startY);
+        Food(int maxX, int maxY);
+
+        void render();
 };
 
 #endif

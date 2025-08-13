@@ -2,14 +2,15 @@
 #include <vector>
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <unistd.h> 
+
 #include "snake.h"
 #include "constants.h"
+#include "food.h"
 
 using namespace std;
 
-
 bool isGameOver;
-
 Snake snake(WIDTH / 2, HEIGHT / 2);
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -37,6 +38,7 @@ void InitGame() {
 
 void RenderGame() {
     GLFWwindow* window;
+    Food food(WIDTH, HEIGHT);
 
     if (!glfwInit()) return;
 
@@ -65,10 +67,14 @@ void RenderGame() {
             isGameOver = true;
             glfwSetWindowShouldClose(window, GL_TRUE);
         }
+
         snake.render(CELL_SIZE);
+        food.render();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        usleep(10000);
     }
 
     glfwTerminate();

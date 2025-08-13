@@ -2,53 +2,18 @@
 #include <vector>
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include "snake.h"
+
 using namespace std;
 
-enum Direction { NORTH, SOUTH, WEST, EAST };
-const int WIDTH = 640;
-const int HEIGHT = 480;
+const int WIDTH = 700;
+const int HEIGHT = 500;
 bool isGameOver;
 
 void InitGame() {
     isGameOver = false;
 };
 
-void RenderSnake(int x, int y, int cellSize) {
-    // Head of the snake
-    glColor3f(0.0f, 0.39f, 0.0f);
-
-    glBegin(GL_QUADS);
-        glVertex2i(x, y);
-        glVertex2i(x + cellSize, y);
-        glVertex2i(x + cellSize, y + cellSize);
-        glVertex2i(x, y + cellSize);
-    glEnd();
-
-    // Eyes of the snake
-
-    int eyeDimension = cellSize / 5;
-    int eyeY = y + cellSize - eyeDimension - 5;
-
-    int leftEye = x + cellSize / 4 - eyeDimension / 2;
-    int rightEye = x + 3 * cellSize / 4 - eyeDimension / 2;
-    glColor3f(1.0f, 1.0f, 1.0f);
-
-    glBegin(GL_QUADS);
-        // Left eye
-        glVertex2i(leftEye, eyeY);
-        glVertex2i(leftEye + eyeDimension, eyeY);
-        glVertex2i(leftEye + eyeDimension, eyeY + eyeDimension);
-        glVertex2i(leftEye, eyeY + eyeDimension);
-
-        // Right eye
-        glVertex2i(rightEye, eyeY);
-        glVertex2i(rightEye + eyeDimension, eyeY);
-        glVertex2i(rightEye + eyeDimension, eyeY + eyeDimension);
-        glVertex2i(rightEye, eyeY + eyeDimension);
-    glEnd();
-
-    glFlush(); 
-};
 
 void RenderGame() {
     GLFWwindow* window;
@@ -63,9 +28,25 @@ void RenderGame() {
 
     glfwMakeContextCurrent(window);
 
+    // Setup 2D projection
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, WIDTH, 0, HEIGHT, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+
+    int snakeX = WIDTH / 2;
+    int snakeY = HEIGHT / 2;
+    int cellSize = 20;
+
+    Snake snake(snakeX, snakeY);
+
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
-        // RenderSnake();
+        glLoadIdentity();
+
+        snake.move();
+        snake.render(cellSize);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -76,5 +57,6 @@ void RenderGame() {
 
 
 int main(int argc, const char * argv[]) {
+    InitGame();
     RenderGame();
 }

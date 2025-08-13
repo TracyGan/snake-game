@@ -4,26 +4,27 @@
 #include <vector>
 #include <utility>
 
-using namespace std;
+enum Direction { NORTH, SOUTH, WEST, EAST };
 
-enum Direction { UP, DOWN, LEFT, RIGHT };
+class Snake {
+    private:
+        std::vector<std::pair<int, int>> body;
+        Direction dir;
 
-struct Snake {
-    int x, y;
-    vector<pair<int, int>> body;
-    Direction dir;
+    public:
+        Snake(int startX, int startY);
 
-    // Constructor
-    Snake();
+        // Change Snake's head direction to NSWE, and prevents direct reversing 
+        void changeDirection(Direction d);
 
-    // Change Snake's head direction to NSWE
-    void changeDirection(Direction d);
+        // Check if snake collides with border or itself
+        bool checkCollision();
 
-    // Check if snake collides with border or itself
-    bool checkCollision();
+        void eat();
 
-    void eat();
+        void render(int cellSize);
+
+        void move();
 };
-
 
 #endif 

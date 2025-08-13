@@ -1,7 +1,19 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -DGL_SILENCE_DEPRECATION
-INCLUDES = -I/opt/homebrew/Cellar/glfw/3.4/include
-LIBS = -L/opt/homebrew/Cellar/glfw/3.4/lib -lglfw -framework OpenGL
+INCLUDES = -I/opt/homebrew/include
+LIBS = -L/opt/homebrew/lib -lglfw -framework OpenGL
  
-main: main.cpp
-	$(CXX) $(CXXFLAGS) main.cpp $(INCLUDES) $(LIBS) -o main
+SRCS = main.cpp snake.cpp
+OBJS = $(SRCS:.cpp=.o)
+
+main: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) $(LIBS) -o main
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -f $(OBJS) main
+
+help:
+	@echo "main - Build the program"

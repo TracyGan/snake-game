@@ -14,8 +14,10 @@ class Snake {
     public:
         Snake(int startX, int startY);
 
-        // Change Snake's head direction to NSWE, and prevents direct reversing 
-        void changeDirection(Direction d);
+        Direction getDirection();
+
+        // Set Snake's head direction to NSWE
+        void setDirection(Direction d);
 
         // Check if snake collides with border or itself
         bool checkCollision();

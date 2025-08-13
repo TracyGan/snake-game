@@ -10,10 +10,30 @@ const int WIDTH = 700;
 const int HEIGHT = 500;
 bool isGameOver;
 
+Snake snake(WIDTH / 2, HEIGHT / 2);
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+        switch (key) {
+            case GLFW_KEY_UP:
+                snake.setDirection(NORTH);
+                break;
+            case GLFW_KEY_DOWN:
+                snake.setDirection(SOUTH);
+                break;
+            case GLFW_KEY_LEFT:
+                snake.setDirection(WEST);
+                break;
+            case GLFW_KEY_RIGHT:
+                snake.setDirection(EAST);
+                break;
+        }
+    }
+}
+
 void InitGame() {
     isGameOver = false;
 };
-
 
 void RenderGame() {
     GLFWwindow* window;
@@ -34,11 +54,9 @@ void RenderGame() {
     glOrtho(0, WIDTH, 0, HEIGHT, -1, 1);
     glMatrixMode(GL_MODELVIEW);
 
-    int snakeX = WIDTH / 2;
-    int snakeY = HEIGHT / 2;
     int cellSize = 20;
 
-    Snake snake(snakeX, snakeY);
+    glfwSetKeyCallback(window, keyCallback);
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);

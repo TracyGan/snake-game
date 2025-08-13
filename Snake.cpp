@@ -8,13 +8,12 @@ Snake::Snake(int startX, int startY) {
     dir = NORTH;
 }
 
-void Snake::changeDirection(Direction d) {
-    if ((dir == NORTH && d != SOUTH) ||
-        (dir == SOUTH && d != NORTH) ||
-        (dir == EAST  && d != WEST)  ||
-        (dir == WEST  && d != EAST)) {
-        dir = d;
-    };
+Direction Snake::getDirection() {
+    return dir;
+}
+
+void Snake::setDirection(Direction d) {
+    dir = d;
 }   
 
 bool Snake::checkCollision() {

@@ -6,7 +6,8 @@
         "array": "cpp",
         "list": "cpp",
         "string": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "utility": "cpp"
     },
     "cSpell.words": [
         "glfw"

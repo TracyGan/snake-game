@@ -62,7 +62,8 @@ void RenderGame() {
 
         snake.move();
         if (snake.checkCollision()) {
-            break;
+            isGameOver = true;
+            glfwSetWindowShouldClose(window, GL_TRUE);
         }
         snake.render(CELL_SIZE);
 

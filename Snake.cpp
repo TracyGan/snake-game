@@ -24,7 +24,10 @@ bool Snake::checkCollision() {
     auto headX = body.front().first;
     auto headY = body.front().second;
 
-    return (headX < 0 || headX >= WIDTH || headY < 0 || headY >= HEIGHT);
+    auto halfCellSize = CELL_SIZE / 2;
+
+    return (headX + halfCellSize < 0 || headX + halfCellSize >= WIDTH || 
+    headY + halfCellSize < 0 || headY + halfCellSize >= HEIGHT);
 }
 
 bool Snake::eat(std::pair<int, int> foodPosition) {

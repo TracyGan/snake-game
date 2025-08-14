@@ -81,7 +81,7 @@ void RenderGame() {
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        usleep(100000);
+        usleep(100500);
     }
 
     glfwTerminate();

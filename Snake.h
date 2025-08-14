@@ -24,7 +24,7 @@ class Snake {
 
         void eat();
 
-        void render(int cellSize);
+        void render();
 
         void move();
 };

@@ -68,7 +68,7 @@ void RenderGame() {
             glfwSetWindowShouldClose(window, GL_TRUE);
         }
 
-        snake.render(CELL_SIZE);
+        snake.render();
         food.render();
 
         glfwSwapBuffers(window);

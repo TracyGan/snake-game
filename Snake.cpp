@@ -25,7 +25,7 @@ bool Snake::checkCollision(std::pair<int, int> foodPosition) {
     auto distance = CELL_SIZE + FOOD_RADIUS;
 
     return (headX < 0 || headX >= WIDTH || headY < 0 || headY >= HEIGHT || 
-    headX == foodPosition.first || headY == foodPosition.second);
+    (headX == foodPosition.first && headY == foodPosition.second));
 }
 
 void Snake::eat() {
@@ -39,46 +39,49 @@ void Snake::move() {
     else if (dir == WEST) body.front().first -= 1;
 }
 
-void Snake::render(int cellSize) {
+void Snake::render() {
     auto x = body.front().first;
     auto y = body.front().second;
+
+    auto halfCellSize = CELL_SIZE / 2;
     // Head of the snake
     glColor3f(0.0f, 0.39f, 0.0f);
 
+
     glBegin(GL_QUADS);
-        glVertex2i(x, y);
-        glVertex2i(x + cellSize, y);
-        glVertex2i(x + cellSize, y + cellSize);
-        glVertex2i(x, y + cellSize);
+        glVertex2i(x - halfCellSize, y - halfCellSize);
+        glVertex2i(x + halfCellSize, y - halfCellSize);
+        glVertex2i(x + halfCellSize, y + halfCellSize);
+        glVertex2i(x - halfCellSize, y + halfCellSize);
     glEnd();
 
     // Eyes of the snake
-    int eyeDimension = cellSize / 5;
+    int eyeDimension = CELL_SIZE / 5;
     int leftEyeX, leftEyeY, rightEyeX, rightEyeY;
 
     switch (dir) {
          case NORTH: 
-            leftEyeX = x + cellSize / 4 - eyeDimension / 2;
-            rightEyeX = x + 3 * cellSize / 4 - eyeDimension / 2;
-            leftEyeY = rightEyeY = y + cellSize - eyeDimension - 5; 
+            leftEyeX = x - CELL_SIZE / 4 - eyeDimension / 2;
+            rightEyeX = x + CELL_SIZE / 4 - eyeDimension / 2;
+            leftEyeY = rightEyeY = y + halfCellSize - eyeDimension - 2; 
             break;
 
         case SOUTH: 
-            leftEyeX = x + cellSize / 4 - eyeDimension / 2;
-            rightEyeX = x + 3 * cellSize / 4 - eyeDimension / 2;
-            leftEyeY = rightEyeY = y + 5; 
+            leftEyeX = x - CELL_SIZE / 4 - eyeDimension / 2;
+            rightEyeX = x + CELL_SIZE / 4 - eyeDimension / 2;
+            leftEyeY = rightEyeY = y - halfCellSize + 2; 
             break;
             
         case WEST: 
-            leftEyeX = rightEyeX = x + 5; 
-            leftEyeY = y + cellSize / 4 - eyeDimension / 2;
-            rightEyeY = y + 3 * cellSize / 4 - eyeDimension / 2;
+            leftEyeX = rightEyeX = x - halfCellSize + 2; 
+            leftEyeY = y + CELL_SIZE / 4 - eyeDimension / 2;
+            rightEyeY = y - CELL_SIZE / 4 - eyeDimension / 2;
             break;
             
         case EAST: 
-            leftEyeX = rightEyeX = x + cellSize - eyeDimension - 5;
-            leftEyeY = y + cellSize / 4 - eyeDimension / 2;
-            rightEyeY = y + 3 * cellSize / 4 - eyeDimension / 2;
+            leftEyeX = rightEyeX = x + halfCellSize - eyeDimension - 2;
+            leftEyeY = y + CELL_SIZE / 4 - eyeDimension / 2;
+            rightEyeY = y - CELL_SIZE / 4 - eyeDimension / 2;
             break;
     }
 

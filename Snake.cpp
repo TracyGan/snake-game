@@ -22,7 +22,7 @@ bool Snake::checkCollision(std::pair<int, int> foodPosition) {
     auto headX = body.front().first;
     auto headY = body.front().second;
 
-    const distance = CELL_SIZE + FOOD_RADIUS
+    auto distance = CELL_SIZE + FOOD_RADIUS;
 
     return (headX < 0 || headX >= WIDTH || headY < 0 || headY >= HEIGHT || 
     headX == foodPosition.first || headY == foodPosition.second);

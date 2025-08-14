@@ -20,7 +20,7 @@ class Snake {
         void setDirection(Direction d);
 
         // Check if snake collides with border or itself
-        bool checkCollision();
+        bool checkCollision(std::pair<int, int> foodPosition);
 
         void eat();
 

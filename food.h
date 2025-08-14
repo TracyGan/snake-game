@@ -11,6 +11,8 @@ class Food {
         Food(int maxX, int maxY);
 
         void render();
+
+        std::pair<int, int> getPosition();
 };
 
 #endif

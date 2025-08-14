@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 
 #include "food.h"
-#include <GLFW/glfw3.h>
+#include "constants.h"
 
 Food::Food(int maxX, int maxY) {
     std::random_device rd;
@@ -16,8 +16,11 @@ Food::Food(int maxX, int maxY) {
     position.second = distribY(gen);
 }
 
+std::pair<int, int> Food::getPosition() {
+    return position;
+}
+
 void Food::render() {
-    float radius = 10.0f;  
     int numSegments = 50;   
     float centerX = position.first;     
     float centerY = position.second;      
@@ -28,8 +31,8 @@ void Food::render() {
         glVertex2f(centerX, centerY); // center of circle
         for(int i = 0; i <= numSegments; i++) {
             float angle = 2.0f * 3.14159f * i / numSegments;
-            float dx = radius * cos(angle);
-            float dy = radius * sin(angle);
+            float dx = FOOD_RADIUS * cos(angle);
+            float dy = FOOD_RADIUS * sin(angle);
             glVertex2f(centerX + dx, centerY + dy);
         }
     glEnd();

@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "snake.h"
 #include "constants.h"
+#include "food.h"
 
 Snake::Snake(int startX, int startY) {
     body.push_back({startX, startY});
@@ -17,11 +18,14 @@ void Snake::setDirection(Direction d) {
     dir = d;
 }   
 
-bool Snake::checkCollision() {
+bool Snake::checkCollision(std::pair<int, int> foodPosition) {
     auto headX = body.front().first;
     auto headY = body.front().second;
 
-    return (headX < 0 || headX >= WIDTH || headY < 0 || headY >= HEIGHT);
+    const distance = CELL_SIZE + FOOD_RADIUS
+
+    return (headX < 0 || headX >= WIDTH || headY < 0 || headY >= HEIGHT || 
+    headX == foodPosition.first || headY == foodPosition.second);
 }
 
 void Snake::eat() {

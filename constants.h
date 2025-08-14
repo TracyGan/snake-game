@@ -6,4 +6,6 @@ const int HEIGHT = 500;
 
 const int CELL_SIZE = 20;
 
+const int FOOD_RADIUS = 10;
+
 #endif

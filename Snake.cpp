@@ -40,16 +40,6 @@ bool Snake::eat(std::pair<int, int> foodPosition) {
     return sqrt((x * x) + (y * y)) < (FOOD_RADIUS + (CELL_SIZE / 2));
 }
 
-void Snake::grow() {
-    auto tailX = body.back().first;
-    auto tailY = body.back().second;
-
-    if (dir == NORTH) body.push_back({tailX, tailY + CELL_SIZE});
-    else if (dir == SOUTH) body.push_back({tailX, tailY - CELL_SIZE});
-    else if (dir == EAST) body.push_back({tailX - CELL_SIZE, tailY});
-    else if (dir == WEST) body.push_back({tailX + CELL_SIZE, tailY});
-}
-
 void Snake::move(bool growing) {
     int headX = body.front().first;
     int headY = body.front().second;

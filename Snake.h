@@ -24,8 +24,6 @@ class Snake {
 
         bool eat(std::pair<int, int> foodPosition);
 
-        void grow();
-
         void renderSnake();
 
         void renderBody(int x, int y);

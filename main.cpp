@@ -70,18 +70,16 @@ void RenderGame() {
 
         if (snake.eat(food.getPosition())) {
             growing = true;
-            snake.grow();
             food.respawn(WIDTH, HEIGHT);
         }
         snake.move(growing);
-
         snake.renderSnake();
         food.render();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        usleep(100500);
+        usleep(200000);
     }
 
     glfwTerminate();

@@ -63,7 +63,7 @@ void RenderGame() {
         glLoadIdentity();
 
         snake.move();
-        if (snake.checkCollision(food.getPosition())) {
+        if (snake.checkCollision()) {
             isGameOver = true;
             glfwSetWindowShouldClose(window, GL_TRUE);
         }

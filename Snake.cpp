@@ -18,7 +18,7 @@ void Snake::setDirection(Direction d) {
     dir = d;
 }   
 
-bool Snake::checkCollision(std::pair<int, int> foodPosition) {
+bool Snake::checkCollision() {
     auto headX = body.front().first;
     auto headY = body.front().second;
 

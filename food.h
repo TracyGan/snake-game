@@ -13,6 +13,8 @@ class Food {
         void render();
 
         std::pair<int, int> getPosition();
+
+        void respawn(int maxX, int maxY);
 };
 
 #endif

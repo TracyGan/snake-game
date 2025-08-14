@@ -48,10 +48,10 @@ void Snake::grow() {
 }
 
 void Snake::move(bool growing) {
-    if (dir == NORTH) body.front().second += 1;
-    else if (dir == SOUTH) body.front().second -= 1;
-    else if (dir == EAST) body.front().first += 1;
-    else if (dir == WEST) body.front().first -= 1;
+    if (dir == NORTH) body.front().second += 5;
+    else if (dir == SOUTH) body.front().second -= 5;
+    else if (dir == EAST) body.front().first += 5;
+    else if (dir == WEST) body.front().first -= 5;
 }
 
 void Snake::renderSnake() {

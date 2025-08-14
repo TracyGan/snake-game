@@ -5,20 +5,7 @@
 #include "constants.h"
 
 Food::Food(int maxX, int maxY) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    // Ensure that the coordinates are not at the border
-    std::uniform_int_distribution<> distribX(15, maxX - 15);
-    std::uniform_int_distribution<> distribY(15, maxY - 15);
-
-    int snakeX = maxX / 2;
-    int snakeY = maxY / 2;
-
-    do {
-        position.first = distribX(gen);
-        position.second = distribY(gen);
-    } while (abs(position.first - snakeX) < 5 && abs(position.second - snakeY) < 5);
+    respawn(maxX, maxY);
 }
 
 std::pair<int, int> Food::getPosition() {
@@ -43,4 +30,23 @@ void Food::render() {
     glEnd();
 
     glFlush();
+}
+
+void Food::respawn(int maxX, int maxY) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::uniform_int_distribution<> distribX(15, maxX - 15);
+    std::uniform_int_distribution<> distribY(15, maxY - 15);
+
+    position.first = distribX(gen);
+    position.second = distribY(gen);
+
+    int snakeX = maxX / 2;
+    int snakeY = maxY / 2;
+
+    do {
+        position.first = distribX(gen);
+        position.second = distribY(gen);
+    } while (abs(position.first - snakeX) < 5 && abs(position.second - snakeY) < 5);
 }

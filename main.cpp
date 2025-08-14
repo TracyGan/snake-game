@@ -71,6 +71,7 @@ void RenderGame() {
         if (snake.eat(food.getPosition())) {
             growing = true;
             snake.grow();
+            food.respawn(WIDTH, HEIGHT);
         }
         snake.move(growing);
 
@@ -80,7 +81,7 @@ void RenderGame() {
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        usleep(10000);
+        usleep(100000);
     }
 
     glfwTerminate();

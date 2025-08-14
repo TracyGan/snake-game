@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -DGL_SILENCE_DEPRECATION
 INCLUDES = -I/opt/homebrew/include
-LIBS = -L/opt/homebrew/lib -lglfw -framework OpenGL
+LIBS = -L/opt/homebrew/lib -lglfw -framework OpenGL -framework GLUT
  
 SRCS = main.cpp snake.cpp food.cpp
 OBJS = $(SRCS:.cpp=.o)

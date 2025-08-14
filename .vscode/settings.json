@@ -67,6 +67,7 @@
         "random": "cpp"
     },
     "cSpell.words": [
-        "glfw"
+        "glfw",
+        "glew"
     ]
 }

@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <GLUT/glut.h>
 #include <unistd.h> 
 
 #include "snake.h"
@@ -32,13 +33,35 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     }
 }
 
-void InitGame() {
-    isGameOver = false;
+void RenderText(float x, float y, const char* text) {
+    glRasterPos2f(x, y);
+    for (const char* c = text; *c != '\0'; c++) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *c);
+    }
+}
+
+void RenderStartScreen(GLFWwindow* window) {
+    while (!glfwWindowShouldClose(window)) {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glLoadIdentity();
+
+        glColor3f(1.0f, 1.0f, 1.0f); 
+        RenderText(WIDTH/4, HEIGHT/2 + 10, "Start Snake Game");
+        RenderText(WIDTH/4, HEIGHT/2 - 10, "Press SPACE to start");
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            break; 
+        } 
+    }
 };
 
 void RenderGame() {
     GLFWwindow* window;
     Food food(WIDTH, HEIGHT);
+    bool paused = true;
 
     if (!glfwInit()) return;
 
@@ -58,7 +81,9 @@ void RenderGame() {
 
     glfwSetKeyCallback(window, keyCallback);
 
-    while (!glfwWindowShouldClose(window)) {
+    RenderStartScreen(window);
+
+    while (paused && !glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
         glLoadIdentity();
         
@@ -66,6 +91,7 @@ void RenderGame() {
         if (snake.checkCollision()) {
             isGameOver = true;
             glfwSetWindowShouldClose(window, GL_TRUE);
+            // RenderEndScreen(window);
         }
 
         if (snake.eat(food.getPosition())) {
@@ -88,6 +114,6 @@ void RenderGame() {
 
 
 int main(int argc, const char * argv[]) {
-    InitGame();
+    // InitGame();
     RenderGame();
 }

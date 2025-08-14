@@ -137,7 +137,7 @@ void Snake::renderBody(int x, int y) {
 
     auto halfCellSize = CELL_SIZE / 2;
     
-    glColor3f(0.0f, 1.0f, 0.0f);
+    glColor3f(0.0f, 0.39f, 0.0f);
     glBegin(GL_QUADS);
         glVertex2i(x - halfCellSize, y - halfCellSize);
         glVertex2i(x + halfCellSize, y - halfCellSize);

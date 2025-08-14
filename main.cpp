@@ -61,14 +61,20 @@ void RenderGame() {
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
         glLoadIdentity();
-
-        snake.move();
+        
+        bool growing = false;
         if (snake.checkCollision()) {
             isGameOver = true;
             glfwSetWindowShouldClose(window, GL_TRUE);
         }
 
-        snake.render();
+        if (snake.eat(food.getPosition())) {
+            growing = true;
+            snake.grow();
+        }
+        snake.move(growing);
+
+        snake.renderSnake();
         food.render();
 
         glfwSwapBuffers(window);

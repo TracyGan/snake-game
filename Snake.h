@@ -22,11 +22,15 @@ class Snake {
         // Check if snake collides with border or itself
         bool checkCollision();
 
-        void eat();
+        bool eat(std::pair<int, int> foodPosition);
 
-        void render();
+        void grow();
 
-        void move();
+        void renderSnake();
+
+        void renderBody(int x, int y);
+
+        void move(bool growing);
 };
 
 #endif 

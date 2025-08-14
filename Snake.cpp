@@ -1,6 +1,8 @@
 #include <vector>
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <cmath>
+
 #include "snake.h"
 #include "constants.h"
 #include "food.h"
@@ -25,25 +27,40 @@ bool Snake::checkCollision() {
     return (headX < 0 || headX >= WIDTH || headY < 0 || headY >= HEIGHT);
 }
 
-void Snake::eat() {
+bool Snake::eat(std::pair<int, int> foodPosition) {
+    auto headX = body.front().first;
+    auto headY = body.front().second;
 
+    int x = headX - foodPosition.first;
+    int y = headY - foodPosition.second;
+
+    return sqrt((x * x) + (y * y)) < (FOOD_RADIUS + (CELL_SIZE / 2));
 }
 
-void Snake::move() {
+void Snake::grow() {
+    auto tailX = body.back().first;
+    auto tailY = body.back().second;
+
+    if (dir == NORTH) body.push_back({tailX, tailY + CELL_SIZE});
+    else if (dir == SOUTH) body.push_back({tailX, tailY - CELL_SIZE});
+    else if (dir == EAST) body.push_back({tailX - CELL_SIZE, tailY});
+    else if (dir == WEST) body.push_back({tailX + CELL_SIZE, tailY});
+}
+
+void Snake::move(bool growing) {
     if (dir == NORTH) body.front().second += 1;
     else if (dir == SOUTH) body.front().second -= 1;
     else if (dir == EAST) body.front().first += 1;
     else if (dir == WEST) body.front().first -= 1;
 }
 
-void Snake::render() {
+void Snake::renderSnake() {
     auto x = body.front().first;
     auto y = body.front().second;
 
     auto halfCellSize = CELL_SIZE / 2;
     // Head of the snake
     glColor3f(0.0f, 0.39f, 0.0f);
-
 
     glBegin(GL_QUADS);
         glVertex2i(x - halfCellSize, y - halfCellSize);
@@ -97,5 +114,32 @@ void Snake::render() {
         glVertex2i(rightEyeX, rightEyeY + eyeDimension);
     glEnd();
 
+    for (size_t i = 1; i < body.size(); ++i) {
+        renderBody(body[i].first, body[i].second);
+    }
+
     glFlush(); 
 };
+
+void Snake::renderBody(int x, int y) {
+
+    auto halfCellSize = CELL_SIZE / 2;
+    
+    glColor3f(0.0f, 1.0f, 0.0f);
+    glBegin(GL_QUADS);
+        glVertex2i(x - halfCellSize, y - halfCellSize);
+        glVertex2i(x + halfCellSize, y - halfCellSize);
+        glVertex2i(x + halfCellSize, y + halfCellSize);
+        glVertex2i(x - halfCellSize, y + halfCellSize);
+    glEnd();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glLineWidth(2); 
+    glBegin(GL_LINE_LOOP);
+        glVertex2i(x - halfCellSize, y - halfCellSize);
+        glVertex2i(x + halfCellSize, y - halfCellSize);
+        glVertex2i(x + halfCellSize, y + halfCellSize);
+        glVertex2i(x - halfCellSize, y + halfCellSize);
+    glEnd();
+    
+}

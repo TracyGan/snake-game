@@ -12,8 +12,13 @@ Food::Food(int maxX, int maxY) {
     std::uniform_int_distribution<> distribX(15, maxX - 15);
     std::uniform_int_distribution<> distribY(15, maxY - 15);
 
-    position.first = distribX(gen);
-    position.second = distribY(gen);
+    int snakeX = maxX / 2;
+    int snakeY = maxY / 2;
+
+    do {
+        position.first = distribX(gen);
+        position.second = distribY(gen);
+    } while (abs(position.first - snakeX) < 5 && abs(position.second - snakeY) < 5);
 }
 
 std::pair<int, int> Food::getPosition() {
